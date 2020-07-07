@@ -1,0 +1,600 @@
+html {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  font-family: 'Kalam', cursive;
+  margin: 0;
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+#app {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* shared elements */
+
+.bg-color {
+  background-image: linear-gradient(yellow, lightyellow);
+}
+
+.wallet {
+  margin-top: 1.2rem;
+  background: lightgray;
+  display: flex;
+  flex-grow: 0;
+  flex-basis: 0;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  height: 55vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: light;
+  padding: 1rem 1rem 0 1rem;
+  border-radius: 50px;
+}
+
+#next-button {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 0;
+  flex-grow: 0;
+  width: 100%;
+  height: 10%;
+  background: black;
+  color: white;
+  text-align: center;
+}
+
+#next-button:hover {
+  cursor: pointer;
+}
+
+.button-image {
+  height: 48px;
+  width: 48px;
+}
+
+.button-text {
+  font-size: 1.2rem;
+  margin-left: 2vw;
+}
+
+.quiz-header {
+  margin: 1.2rem auto 0 auto;
+  font-size: 2rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  text-align: center;
+}
+
+.item-container {
+  margin: 0.6rem 1rem 0 1rem;
+  background: skyblue;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  border-radius: 10px;
+}
+
+/* landing page */
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  margin: auto 0;
+}
+
+#shop-title {
+  font-size: 2.4rem;
+}
+
+.play-button {
+  background: gold;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.help-button {
+  position: relative;
+}
+
+.help-button img {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 48px;
+  width: 48px;
+  cursor: pointer;
+}
+
+/* story page */
+
+.story-container {
+  text-align: justify;
+  width: 60vw;
+  height: 75vh;
+  font-size: 16px;
+  padding: 50px 75px 0px;
+  overflow-y: auto;
+  margin-bottom: 20vh;
+}
+
+/* map page */
+
+.map-container {
+  width: 60vw;
+  height: 35vh;
+  margin: 1rem 1rem 3rem;
+  background: skyblue;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.map-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.map-button img {
+  height: 64px;
+  width: 64px;
+}
+
+.map-button h3 {
+  font-size: 1rem;
+  margin: auto;
+}
+
+.map-header {
+  font-size: 2rem;
+  margin-top: 10vh;
+  margin-bottom: 0.2vh
+}
+
+.sound-button {
+  position: relative;
+}
+
+.sound-button img {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+}
+
+/* select items part */
+
+.add-message {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  margin: 0 auto;
+  bottom: 12%;
+  background: orange;
+  padding: 15px;
+  width: 80%;
+  height: 25px;
+  align-items: center;
+  border-radius: 50px;
+}
+
+#shop-items {
+  margin: 1.2rem 1.6rem 1.6rem 1.6rem;
+  height: 88vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: light;
+}
+
+.item-button {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  flex-basis: 0;
+  flex-grow: 0;
+  margin: 1rem auto;
+  max-width: 90%;
+  cursor: pointer;
+  background: white;
+  border-radius: 5px;
+  position: relative;
+}
+
+.item-image {
+  height: 64px;
+  width: 64px;
+  margin: 0.5rem 0 0.5rem 0.5rem;
+  padding: 0.2rem 0.15rem;
+  cursor: pointer;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  width: 35vw;
+  margin: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.item-name {
+  text-align: left;
+  margin: 0;
+  padding: 0.2rem 1rem;
+}
+
+.item-price {
+  text-align: left;
+  max-width: 20vw;
+  margin: 0.8rem 0 0 0;
+  padding: 0.1rem 1rem;
+}
+
+/* pay & receive quizzes */
+
+.choice {
+  font-family: 'Kalam', cursive;
+  font-weight: lighter;
+  font-size: 2rem;
+}
+
+.choiceSelected {
+  font-family: 'Kalam', cursive;
+  font-weight: 900;
+  font-size: 2.4rem;
+  /*margin: 2rem auto auto;*/
+}
+
+.quiz-container {
+  height: 80vh;
+  margin: 3rem 2rem;
+}
+
+.quiz-container>h1 {
+  margin: 2rem auto;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 85%;
+  flex-basis: 0;
+  flex-grow: 0;
+}
+
+li {
+  cursor: pointer;
+}
+
+/* coins quiz */
+
+.coin-grid {
+  margin: 0.2rem auto 1.2rem auto;
+  width: 4rem;
+}
+
+.coin-grid>div {
+  display: inline-block;
+  background: lightcoral;
+  vertical-align: middle;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+
+}
+
+/*Coin Animation*/
+
+.coinSelected {
+  opacity: 0.3;
+}
+
+.firstWave {
+  left: -1rem;
+  right: -1rem;
+  top: -1rem;
+  bottom: -1rem;
+  border-radius: 50%;
+  animation: coinPulse 0.5s linear;
+}
+
+
+@keyframes coinPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes jump {
+  0% {
+    top: 0px;
+  }
+  25% {
+    top: -30px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+.moving {
+  animation-name: jump;
+  animation-duration: 0.5s;
+}
+
+#quiz-select-coins {
+  margin: 0 auto;
+  max-width: 85vw;
+  height: 88vh;
+}
+
+/* finish shopping */
+
+#thanks-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 80vh;
+  margin: 2rem 2rem 0;
+}
+
+#shopbag-full {
+  height: 128px;
+  width: 128px;
+}
+
+#thanks-message {
+  text-align: center;
+}
+
+/* generic message box */
+
+.message-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.message-box {
+  position: absolute;
+  display: flex;
+  background: black;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  opacity: 0.9;
+}
+
+.message-text {
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 1rem;
+}
+
+/*/////////////////////////Toogle_menu//////////////////////*/
+
+.toggle-button {
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  margin: 1rem auto;
+}
+
+#toggle-horizontal-buttons {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  cursor: pointer;
+  top: 5%;
+}
+
+.horiz-buttons {
+  height: 48px;
+  width: 48px;
+  margin: 0.1rem 0.5rem 1.2rem;
+  transition: transform .2s;
+}
+
+.horiz-buttons:hover {
+  transform: scale(1.5);
+}
+
+.horiz-buttons img {
+  height: 48px;
+  width: 48px;
+}
+
+.horizButton-text {
+  width: 65vw;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.toggle-button img {
+  height: 48px;
+  width: 48px;
+  margin: 0.1rem auto 0.1rem;
+}
+
+.toggle-style {
+  margin: 0.1rem auto 0.1rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.quiz-list-container {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 60vh;
+  margin: 3rem 2rem;
+}
+
+.menu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 90vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 1s;
+  transform: translateX(100%);
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.menu-active {
+  transform: translateX(0);
+}
+
+.menu-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  margin-bottom: 10vh;
+}
+
+.menu-button {
+  height: 20rem;
+  width: 1.5rem;
+  color: white;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  position: absolute;
+  align-items: center;
+  transition: 0.5s;
+  left: -23px;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.menu-button-active {
+  background: rgba(0, 0, 0, 0.9);
+  width: 1.5rem;
+  height: 100vh;
+  border-top-left-radius: 10px;
+}
+
+.menu-button-active span {
+  transform: rotate(180deg);
+  position: absolute;
+  top: 50%;
+}
+
+.menu-button span {
+  display: inline-block;
+  position: absolute;
+  top: 45%;
+  margin: auto 0.3rem;
+  transition: 1s;
+}
+
+.menu-display {
+  width: 65vw;
+  height: 65vh;
+  margin: auto 0;
+  border-radius: 10px;
+  overflow-y: auto;
+}
+
+.task-title {
+  font-size: 1.5rem;
+  margin: 0.2rem auto;
+}
+
+.task-item {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem auto;
+}
+
+.task-item input {
+  width: 20px;
+  height: 20px;
+}
+
+.task-item h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+#task-item-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-container {
+  display: inline-block;
+}
