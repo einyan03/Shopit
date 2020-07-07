@@ -1,0 +1,45 @@
+[{
+		"shop": "Grocery",
+		"image": "media/common/shop.png",
+		"products": [
+			{ "name": "Carrot", "price": 10, "image": "media/grocery/carrot.png" },
+			{ "name": "Bread", "price": 10, "image": "media/grocery/bread.png" },
+			{ "name": "Milk", "price": 15, "image": "media/grocery/milk.png" },
+			{ "name": "Apple", "price": 10, "image": "media/grocery/apple.png" },
+			{ "name": "Cheese", "price": 31, "image": "media/grocery/cheese.png" },
+			{ "name": "Broccoli", "price": 30, "image": "media/grocery/broccoli.png" },
+			{ "name": "Orange", "price": 10, "image": "media/grocery/orange.png" },
+			{ "name": "Beef", "price": 170, "image": "media/grocery/meat.png" },
+			{ "name": "Soda", "price": 20, "image": "media/grocery/soda.png" },
+			{ "name": "Sausage", "price": 12, "image": "media/grocery/sausage.png" },
+			{ "name": "Strawberry", "price": 14, "image": "media/grocery/strawberry.png" },
+			{ "name": "Chicken", "price": 135, "image": "media/grocery/whole-chicken.png" },
+			{ "name": "Corn", "price": 25, "image": "media/grocery/corn.png" },
+			{ "name": "Canned Tuna", "price": 50, "image": "media/grocery/canned-fish.png" },
+			{ "name": "Chocolate", "price": 28, "image": "media/grocery/chocolate.png" }
+		]
+	},
+	{
+		"shop": "Sports Shop",
+		"image": "media/common/sports-shop.png",
+		"products": [
+			{ "name": "Football", "price": 120, "image": "media/sports-shop/football.png" },
+			{ "name": "Sport Jersey", "price": 120, "image": "media/sports-shop/sport-jersey.png" },
+			{ "name": "Basketball", "price": 120, "image": "media/sports-shop/basketball.png" },
+			{ "name": "Tennis Racket", "price": 120, "image": "media/sports-shop/tennis-racket.png" }
+		]
+	},
+	{
+		"shop": "Patisserie",
+		"image": "media/common/bakery-shop.png",
+		"products": [
+			{ "name": "Shortcake", "price": 45, "image": "media/bakery/cake.png" },
+			{ "name": "Donut", "price": 12, "image": "media/bakery/donut.png" },
+			{ "name": "Cupcake", "price": 25, "image": "media/bakery/cupcake.png" },
+			{ "name": "Birthday Cake", "price": 330, "image": "media/bakery/birthday-cake.png" },
+			{ "name": "Croissant", "price": 15, "image": "media/bakery/croissant.png" },
+			{ "name": "Sandwich", "price": 34, "image": "media/bakery/sandwich.png" },
+			{ "name": "Brownie", "price": 20, "image": "media/bakery/brownie.png" }
+		]
+	}
+]

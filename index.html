@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Shopit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="app" class="bg-color">
+      <!-- landing page -->
+      <div class="page-container" v-if="activeState === 0">
+        <img src="media/common/shop.png">
+        <div id="shop-title">Shopit</div>
+        <button class="play-button" @click="changeAppState">Play Now</button>
+      </div>
+
+      <!-- help button -->
+      <div class="help-button" @click="helpButton" v-if="activeState > 1">
+        <img src="media/common/help.png">
+      </div>
+
+      <!-- sound on/off button -->
+      <div class="sound-button" v-if="activeState > 0" @click="sound">
+        <img v-if="muted" src="media/common/mute.png">
+        <img v-else src="media/common/speaker.png">
+      </div>
+
+      <!-- story page -->
+      <div class="story-container" v-if="activeState === 1">
+        Dear {{ player.name }}, <br> {{ storyJson.mother.beforeList }} <br>
+        <ul>
+          <li v-for="item in player.shoppingList.currentList"> {{ item.count }} of {{ item.name }} </li>
+        </ul> {{ storyJson.mother.afterList }} {{ player.money }} {{storyJson.mother.afterMoney}} {{ player.visits }} {{storyJson.mother.afterVisits}} <br>
+      </div>
+
+      <!-- map page -->
+      <div class="page-container" style="justify-content:flex-start;" v-if="activeState === 2">
+        <h1 class="map-header">Select a shop to enter</h1>
+        <h1 style="font-size:1.7rem;">Number of visits left: {{ player.visits }}</h1>
+        <div class="bg-color map-container">
+          <div class="map-button" v-for="shop in shopsList" :data-index="shop.index" @click="addShopUI($event)" v-bind:class="{coinSelected: shopsList[shop.index].selected}">
+            <img :src="shop.image">
+            <h3>{{ shop.name }}</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- display shop items -->
+      <div v-if="activeState === 3">
+        <div id="shop-items" v-if="shopState === 0">
+          <h1 class="quiz-header">Select items to buy</h1>
+
+          <div id="addingMessage" class="add-message" style="opacity: 0;">
+            {{ productAddedName }} added to the shopping cart...
+          </div>
+
+          <div id="shop-items-container" style="padding-bottom: 10vh;" class="item-container">
+            <div v-for="product in productList">
+              <div class="item-button" :id="product.index" :data-index="product.index" v-bind:class="{moving: product.animated}" @animationend="product.animated = false" @click="app.addToCart($event); app.clickAnimation(product); addingMessage($event)">
+                <div class="item-image" v-html="product.showCartItem()"></div>
+                <div class="item-info">
+                  <h2 class="item-name">{{ product.name }}</h2>
+                  <h3 class="item-price">{{ product.price }} kc</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- display multiple choices; both pay and change quizes -->
+        <div id="multi-quiz" class="item-container quiz-container" v-if="(shopState === 1 || shopState === 3)">
+          <h1 class="quiz-header">Choose your amount to {{ action }}?</h1>
+          <ol style="list-style-image: url('media/common/cat.png');">
+            <li class="choice" :class="{choiceSelected: item.chosen}" :key="item.chosen" @click="selectAnswer(item)" v-for="item in quizObj.choices">
+              {{ item.choiceValue }} kc
+          </ol>
+        </div>
+
+        <div id="quiz-select-coins" v-if="shopState === 2">
+          <div>
+            <h1 class="quiz-header">Amount to Pay: {{ paySum }} kc</h1>
+          </div>
+          <div id="wallet-quiz" class="wallet">
+            <div class="coin-grid" v-for="coin in walletCoins" v-bind:class="{coinSelected : walletCoins[coin.index].selected , firstWave : walletCoins[coin.index].selected}" v-html="coin.showCoin()" :data-index="coin.index" @click="selectCoin($event)">
+            </div>
+          </div>
+        </div>
+
+        <!-- end shopping page -->
+        <div id="thanks-container" class="item-container" v-if="shopState === 4">
+          <img id="shopbag-full" src="media/common/shopping-bag.png">
+          <h3 id="thanks-message">
+            Thank you for<br />shopping with us.<br />See you again!
+          </h3>
+        </div>
+      </div>
+
+      <div v-if="activeState != 0 && activeState != 2 || shopSelected" @click="changeAppState" id="next-button">
+        <img v-if="activeState === 1" class="button-image" src="media/common/go-shopping.png">
+        <img v-else-if="activeState === 2" class="button-image" src="media/common/enter-shop.png">
+        <img v-else-if="shopState === 0" class="button-image" src="media/common/go-to-cashier.png">
+        <img v-else-if="shopState === 1 || shopState === 3" class="button-image" src="media/common/submit-answer.png">
+        <img v-else-if="shopState === 2" class="button-image" src="media/common/pay-coins.png">
+        <img v-else class="button-image" src="media/common/exit-shop.png">
+        <div class="button-text">{{ button }}</div>
+      </div>
+
+      <div id="toggle-menu" class="menu" v-if="activeState > 1" v-bind:class="{'menu-active' : toggleStatus.menu}">
+        <div id="menu-button" @click="toggleMenu" class="menu-button" v-bind:class="{'menu-button-active' : toggleStatus.menu}">
+          <span>◄</span>
+        </div>
+
+        <div class="menu-list">
+          <div id="toggle-horizontal-buttons" v-if="toggleStatus.horizButtons">
+            <div id="story" class="horiz-buttons" @click="horizToggleButtons($event)">
+              <img src="media/common/story.png">
+            </div>
+            <div id="my-wallet" class="horiz-buttons" @click="horizToggleButtons($event)">
+              <img src="media/common/my-wallet.png">
+            </div>
+            <div id="my-shop-list" class="horiz-buttons" @click="horizToggleButtons($event)">
+              <img src="media/common/my-shopping-list.png">
+            </div>
+            <div id="my-shop-cart" class="horiz-buttons" v-if="activeState === 3" @click="horizToggleButtons($event)">
+              <img src="media/common/my-shopping-cart.png">
+            </div>
+            <div id="my-inventory" class="horiz-buttons" v-if="activeState === 2" @click="horizToggleButtons($event)">
+              <img src="media/common/backpack.png">
+            </div>
+          </div>
+
+          <div id="toggle-vertical-buttons" style="margin-bottom:10vh" v-if="toggleStatus.verticalButtons">
+            <div id="toggle-story" class="toggle-button" @click="toggleButton($event)">
+              <img src="media/common/story.png">
+              <h3 class="button-text toggle-style">Story</h3>
+            </div>
+            <div id="toggle-wallet" class="toggle-button" @click="toggleButton($event)">
+              <img src="media/common/my-wallet.png">
+              <h3 class="button-text toggle-style">My wallet</h3>
+            </div>
+            <div id="toggle-shop-list" class="toggle-button" @click="toggleButton($event)">
+              <img src="media/common/my-shopping-list.png">
+              <h3 class="button-text toggle-style">My shopping list</h3>
+            </div>
+            <div id="toggle-shop-cart" class="toggle-button" v-if="activeState === 3" @click="toggleButton($event)">
+              <img src="media/common/my-shopping-cart.png">
+              <h3 class="button-text toggle-style">My shopping cart</h3>
+            </div>
+            <div id="toggle-inventory" class="toggle-button" v-if="activeState === 2" @click="toggleButton($event)">
+              <img src="media/common/backpack.png">
+              <h3 class="button-text toggle-style">Inventory</h3>
+            </div>
+            <div id="toggle-end-game" class="toggle-button" v-if="activeState === 2" @click="resetGame">
+              <img src="media/common/restart-game.png">
+              <h3 class="button-text toggle-style">Restart Game</h3>
+            </div>
+            <div id="toggle-return-map" class="toggle-button" v-if="shopState === 0 && activeState === 3" @click="returnToMap">
+              <img src="media/common/exit-shop.png">
+              <h3 class="button-text toggle-style">Exit Shop</h3>
+            </div>
+            <div id="toggle-return-products" class="toggle-button" v-if="shopState === 1 && activeState == 3" @click="returnToProducts">
+              <img src="media/common/return-to-products.png">
+              <h3 class="button-text toggle-style">Return to products</h3>
+            </div>
+          </div>
+
+          <div id="story-menu" v-if="toggleStatus.storyView">
+            <div id="wallet-display" class="wallet menu-display">
+              <div class="horizButton-text">Story</div>
+              Dear {{ player.name }}, <br> {{ storyJson.mother.beforeList }}
+              <br>
+              <ul>
+                <li v-for="item in player.shoppingList.currentList"> {{ item.count }} of {{ item.name }} </li>
+              </ul> {{ storyJson.mother.afterList }} {{ player.money }} {{storyJson.mother.afterMoney}} {{ player.visits }} {{storyJson.mother.afterVisits}} <br><br>
+            </div>
+          </div>
+
+          <div id="wallet-menu" v-if="toggleStatus.walletView">
+            <div id="wallet-display" class="wallet menu-display">
+              <div class="horizButton-text">My wallet</div>
+              <div class="coin-grid" v-for="coin in walletCoins" v-html="coin.showCoin()">
+              </div>
+            </div>
+          </div>
+
+          <div id="shoplist-menu" v-if="toggleStatus.shopListView">
+            <div id="task-list" class="wallet menu-display">
+              <div class="horizButton-text">My shopping list</div>
+              <div id="task1" class="task-container">
+                <ul id="task-item-list">
+                  <li class="task-item" v-for="item in player.shoppingList.currentList">
+                    <input type="checkbox" :checked="item.checked" @click="item.checked = !item.checked"></input>
+                    <h3>{{ item.count }} x {{ item.name }}</h3>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="shopcart-menu" v-if="toggleStatus.shopCartView">
+            <div id="selected-items" class="wallet menu-display">
+              <div class="horizButton-text">My shopping cart</div>
+              <div v-for="product in shopCartList">
+                <div :data-index="product.index" class="item-image" v-html="product.showCartItem()" @click="app.removeFromCart($event)" style="margin: 0;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="inventory-menu" v-if="toggleStatus.inventoryView">
+            <div id="selected-items" class="wallet menu-display">
+              <div class="horizButton-text">Inventory</div>
+              <div v-for="product in player.inventory">
+                <div :data-index="product.index" class="item-image" v-html="product.showCartItem()" style="margin: 0;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="message-container" v-if="messageShow" @click="closeMessage">
+        <div class="message-box message-text" v-html="warnMessage">
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+  <script src="js/audioContextPolyfill.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/loader.js"></script>
+  <script src="js/generic.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/coinWallet.js"></script>
+  <script src="js/shoppingList.js"></script>
+  <script src="js/multipleChoice.js"></script>
+  <script src="js/shopProducts.js"></script>
+  <script src="js/app.js"></script>
+
+</html>

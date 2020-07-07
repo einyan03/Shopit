@@ -1,0 +1,13 @@
+{
+	"mother": {
+		"beforeList": "I have written all the necessary things to buy for your brother's birthday party.",
+		"afterList": "That's all about it. You can get something for your brother or for yourself too, but only if you have enough money left. You have ",
+		"afterMoney": " kc to spend. You should be back at home on time for the party, so you will only be able to visit the shops at most ",
+		"afterVisits": " times. Take care and see you back at home!"
+	},
+	"ending": {
+		"failed": "You have failed your brother and your family. Bad Child!",
+		"visitsFail": "You were lost on your way back home. You could not arrive home on time. Poor Child!",
+		"success": "Your brother's birthday party was FANTASTIC! You are the best brother there is!"
+	}
+}

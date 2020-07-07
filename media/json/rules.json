@@ -1,0 +1,8 @@
+{
+	"intro": "How to play:",
+	"map": "Map: Here is the starting point. Here you have diffent kinds of shops with different products in it. ",
+	"selectItems": "Shop: Here you can choose the items that you want to buy. To see what exactly you need, please check 'My shoping list'. Be careful, you have a limited amount of money.",
+	"payQuiz": "Payment-1: In this stage you have to choose the amount to pay. If you forget the amount, press the 'Return to products' button in the menu on your right. ",
+	"coinQuiz": "Payment-2: Here you have to pay the total cost in coins from your wallet.",
+	"receiveQuiz": "Payment-3: That's almost it. Now, just select your correct change."
+}

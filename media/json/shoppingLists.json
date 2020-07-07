@@ -1,0 +1,44 @@
+[{
+    "shop": "Grocery",
+    "limit": 3,
+    "products": [
+      { "name": "Carrot", "count": 4 },
+      { "name": "Bread", "count": 3 },
+      { "name": "Milk", "count": 1 },
+      { "name": "Apple", "count": 3 },
+      { "name": "Cheese", "count": 2 },
+      { "name": "Broccoli", "count": 1 },
+      { "name": "Orange", "count": 3 },
+      { "name": "Chicken", "count": 1 },
+      { "name": "Strawberry", "count": 5 },
+      { "name": "Sausage", "count": 2 },
+      { "name": "Canned Fish", "count": 1 },
+      { "name": "Beef", "count": 1 },
+      { "name": "Corn", "count": 2 },
+      { "name": "Chocolate", "count": 1 },
+      { "name": "Soda", "count": 2 }
+    ]
+  },
+  {
+    "shop": "Sports Shop",
+    "limit": 1,
+    "products": [
+      { "name": "Football", "count": 1 },
+      { "name": "Sport Jersey", "count": 1 },
+      { "name": "Basketball", "count": 1 },
+      { "name": "Tennis Racket", "count": 1 }
+    ]
+  },
+  {
+    "shop": "Patisserie",
+    "limit": 2,
+    "products": [
+      { "name": "Shortcake", "count": 2 },
+      { "name": "Cupcake", "count": 2 },
+      { "name": "Croissant", "count": 3 },
+      { "name": "Sandwich", "count": 3 },
+      { "name": "Brownie", "count": 2 },
+      { "name": "Donut", "count": 2 }
+    ]
+  }
+]
